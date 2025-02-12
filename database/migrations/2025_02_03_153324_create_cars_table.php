@@ -22,14 +22,13 @@ return new class extends Migration
             $table->date('year')->nullable();
             $table->string('sticker')->nullable();
             $table->string('fuel')->nullable();
-            $table->decimal('km', 8,2)->nullable();
-            $table->decimal('cv', 8,2)->nullable();
+            $table->integer('km')->nullable();
+            $table->integer('cv')->nullable();
             $table->string('transmission')->nullable();
             $table->integer('doors')->nullable();
+            $table->integer('places')->nullable();
             $table->string('description')->nullable();
-            $table->boolean('sale')->default(false);
-            $table->boolean('rental')->default(false);
-            $table->boolean('sold')->default(false);
+            $table->string('type_sale')->nullable();
             $table->date('sale_date')->nullable();
             $table->decimal('price', 8,2)->nullable();
             $table->timestamps();

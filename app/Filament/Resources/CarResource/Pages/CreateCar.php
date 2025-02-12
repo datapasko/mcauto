@@ -9,13 +9,4 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateCar extends CreateRecord
 {
     protected static string $resource = CarResource::class;
-
-    protected static ?string $title = 'Crear messi';
-    
-    protected static ?string $navigationLabel = 'Custom Navigation Label';
-
-    protected function getCreateButtonLabel(): string
-    {
-        return 'Guardar Carro';
-    }
 }
