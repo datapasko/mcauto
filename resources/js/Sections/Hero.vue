@@ -1,18 +1,18 @@
 <template>
-    <div class="bg-[url(../img/rojo.png)] bg-cover bg-center h-screen">
+    <div class="bg-[url(../img/logan.jpg)] bg-cover bg-center h-screen">
 
         <div class="flexCenter">
-            <div class="max-w-3xl text-center mx-auto pt-30">
+            <div class="max-container pt-30">
 
                 <!-- Title -->
-                <div class="pt-5 max-w-3xl py-5">
-                    <h1 class="block font-bold text-white text-4xl md:text-5xl lg:text-6xl ">
+                <div class="pt-5 py-5">
+                    <h1 class="block font-bold text-white text-4xl md:text-5xl lg:text-6xl">
                         Concesionario de<p class="text-primary-600"> Coches de Segunda Mano</p> en Barcelona.
                     </h1>
                 </div>
                 <!-- End Title -->
 
-                <div class="my-5 max-w-3xl py-5">
+                <div class="my-5 py-5">
                     <p class="text-xl font-semibold italic text-white">Encuentra el coche de segunda mano perfecto para ti, con precios imbatibles, garantía asegurada y un proceso de compra fácil, rápido y sin complicaciones.</p>
                 </div>
 

@@ -13,10 +13,8 @@ Route::get('/coches-segunda-mano-barcelona', function () {
 });
 
 Route::get('/cars/{car}/show', function (Car $car) {
-
-    dd($car);
-    //$car = Car::findOrFail($car); // Busca el usuario o lanza un error 404
-    return Inertia::render('ShowCar', ['car' => $car]);
+    $cars = Car::orderBy('id', 'desc')->limit(4)->get();
+    return Inertia::render('ShowCar', ['car' => $car, 'cars' => $cars]);
 });
 
 /* 
