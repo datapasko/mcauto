@@ -198,7 +198,7 @@ class CarResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
+        return $table 
             ->columns([
                 TextColumn::make('registration')->sortable()->searchable(),
                 TextColumn::make('brand')->sortable()->searchable(),

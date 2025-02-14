@@ -10,10 +10,19 @@ class Image extends Model
 {    
     protected $fillable = ['car_id', 'image_path'];
 
+    protected $appends = ['image_url'];
+
     public function car(): BelongsTo
     {
         return $this->belongsTo(Car::class);
     }
+
+    // Mutador para obtener la URL completa de la imagen
+    public function getImageUrlAttribute()
+    {
+        return $this->image_path ? Storage::disk('public')->url($this->image_path) : asset('images/default-car.jpg');
+    }
+
 
     // Evento que se ejecuta antes de eliminar una imagen
     protected static function boot()

@@ -44,7 +44,7 @@
                 <img 
                         src="../../img/1187.jpg"
                         alt="car.registration"
-                        class="w-full h-full object-cover object-center rounded-4xl transition-transform duration-300 hover:scale-105"
+                        class=" w-full h-full object-cover object-center rounded-4xl transition-transform duration-300 hover:scale-105"
                     />
             </div>
 

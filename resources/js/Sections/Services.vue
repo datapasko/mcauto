@@ -1,5 +1,5 @@
 <template>
-    <div class="max-container mb-12 py-14">
+    <div class="max-container mb-5 py-14">
         
         <div class="p-4 text-center mb-12">
             <h2 class="font-bold mb-2 text-xl md:text-3xl">Nuestros Servicios en <span class="text-primary-500">McAuto13</span></h2>
@@ -7,31 +7,32 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 py-5">
-            <div v-for="(item, index) in services" :key="index" class="block border border-gray-200 rounded-lg hover:border-primary-500 hover:shadow-sm focus:outline-none dark:border-neutral-700">
-                <div class="relative flex items-center overflow-hidden">
-                    <img class="w-32 sm:w-48 h-full absolute inset-0 object-cover rounded-s-lg" :src="item.img" alt="alquiler de coche">
+            <div v-for="(item, index) in services" :key="index" class="block border border-gray-200 rounded-lg hover:bg-primary-100 hover:border-primary-500 hover:shadow-sm focus:outline-none dark:border-neutral-700">
+                <a type="button" @click="openModal">
+                    <div class="relative flex items-center overflow-hidden">
+                        <img class="w-32 sm:w-48 h-full absolute inset-0 object-cover rounded-s-lg" :src="item.img" alt="alquiler de coche">
 
-                    <div class="grow p-4 ms-32 sm:ms-48">
-                    <div class="min-h-24 flex flex-col justify-center">
-                        <h3 class="font-semibold text-sm text-gray-800 dark:text-neutral-300">
-                            {{  item.title }}
-                        </h3>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-neutral-500">
-                            {{ item.description }}
-                        </p>
+                        <div class="grow p-4 ms-32 sm:ms-48">
+                            <div class="min-h-24 flex flex-col justify-center">
+                                <h3 class="font-semibold text-xl text-gray-800 dark:text-neutral-300">
+                                    {{  item.title }}
+                                </h3>
+                                <p class="mt-1 text-sm text-gray-500 dark:text-neutral-500">
+                                    {{ item.description }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                </div>
+                </a>
             </div>            
         </div>
 
-        <div class="text-center mt-10">
-            <button type="button" class="bg-primary-500 gap-x-2 text-white text-nowrap rounded-xl border border-transparent font-semibold px-4 py-2 mt-10 hover:bg-primary-600 focus:outline-none focus:bg-primary-600 transition disabled:opacity-50 disabled:pointer-events-none" @click="openModal">¡No esperes más!</button>
-        </div>
 
-        
-
-
+        <div class="text-center mt-5">
+            <button type="button" class="bg-primary-500 gap-x-2 text-white text-nowrap rounded-xl border border-transparent font-semibold px-4 py-2 mt-10 hover:bg-primary-600 focus:outline-none focus:bg-primary-600 transition disabled:opacity-50 disabled:pointer-events-none" @click="openModal">Agendar cita</button>
+            
+            <ServiceModal :open="isOpen" @close="isOpen = !isOpen"></ServiceModal>
+        </div>      
 
     </div>
 </template>
@@ -43,9 +44,15 @@
     import imgLavado from "../../img/services/lavado.webp"
     import imgLimpieza from "../../img/services/limpieza.webp"
     import imgSeguro from "../../img/services/seguro.webp"
+    import ServiceModal from "../Sections/Modals/ServiceModal.vue"
+    import { ref } from 'vue'
 
     export default {
         name: 'Services',
+
+        components: {
+            ServiceModal
+        },
 
         data() {
             return {
@@ -83,6 +90,19 @@
                 ]
             }
         },
+
+        setup () {
+            const isOpen = ref(false)
+
+            const openModal = () => {
+                isOpen.value = true
+                return isOpen.value
+            }
+
+            return {
+                isOpen, openModal
+            }
+        }
         
     }
 </script>

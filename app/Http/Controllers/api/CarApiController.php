@@ -13,7 +13,8 @@ class CarApiController extends Controller
     public function getIndexPaginate(Request $request) 
     {
         //dd($request->color);
-        return Car::byBrand($request->brand)
+        return Car::with('images')
+            ->byBrand($request->brand)
             ->byColor($request->color)
             ->byYear($request->year)
             ->paginate(10);
@@ -21,7 +22,7 @@ class CarApiController extends Controller
 
     public function getLastCars(Request $request) 
     {
-        return Car::latest()->take(4)->get();
+        return Car::with('images')->latest()->take(4)->get();
     }
 
     public function buyCar(Request $request)

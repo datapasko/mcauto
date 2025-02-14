@@ -47,7 +47,6 @@ const years = ref(Array.from({ length: nextYear - 1900 + 1 }, (_, i) => nextYear
 
 const getCars = () => {
     let url = `/api/cars/all`;
-    console.log({ messi: filters.value })
     axios.get(url, { params: filters.value }).then((response) => {
         cars.value = response.data.data;
     });

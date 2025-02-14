@@ -49,7 +49,7 @@
 
                 <div class="p-2">                    
 
-                    <h2 class="text-sm font-semibold text-gray-700 mb-4">Tasación gratuita y sin compromiso. ¡Descubre cuánto vale tu coche!</h2>
+                    <h2 class="text-sm font-semibold text-gray-700 mb-4">Reserva una cita y te asesoramos sin compromiso.</h2>
 
                     <form @submit.prevent="submitForm">
 
@@ -104,7 +104,7 @@
                             </div>
 
                             <div>                            
-                                <button type="submit" class="bg-primary-600 text-white px-3 py-2 rounded-lg text-sm">Solicitar tasación</button>
+                                <button type="submit" class="bg-primary-600 text-white px-3 py-2 rounded-lg text-sm">Agendar Cita</button>
                             </div>
                         </div>
 
@@ -122,7 +122,7 @@
 <script>
 
     export default {
-        name: 'BuyCarModal',
+        name: 'ServiceModal',
 
         props: {
             open: Boolean,

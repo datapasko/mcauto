@@ -4,6 +4,7 @@
     const emit = defineEmits(['close']);
 
     const form = ref({
+        car: '',
         name: '',
         email: '',
         phone: '',
@@ -18,11 +19,12 @@
 
     const submitForm = async () => {
         try {
-            await axios.post('/api/cars/buy-car', form.value);
+            await axios.post('/api/cars/sale-car', form.value);
 
             alertSend.value = true
 
             form.value = {
+                car: '',
                 name: '',
                 email: '',
                 phone: '',
@@ -49,7 +51,7 @@
 
                 <div class="p-2">                    
 
-                    <h2 class="text-sm font-semibold text-gray-700 mb-4">Tasación gratuita y sin compromiso. ¡Descubre cuánto vale tu coche!</h2>
+                    <h2 class="text-sm font-semibold text-gray-700 mb-4">Cotización sin compromiso. ¡Tu coche ideal.!</h2>
 
                     <form @submit.prevent="submitForm">
 
@@ -104,7 +106,7 @@
                             </div>
 
                             <div>                            
-                                <button type="submit" class="bg-primary-600 text-white px-3 py-2 rounded-lg text-sm">Solicitar tasación</button>
+                                <button type="submit" class="bg-primary-600 text-white px-3 py-2 rounded-lg text-sm">Solicitar información</button>
                             </div>
                         </div>
 
@@ -122,9 +124,10 @@
 <script>
 
     export default {
-        name: 'BuyCarModal',
+        name: 'SaleCarModal',
 
         props: {
+            car: Object,
             open: Boolean,
             required: true
         },        
