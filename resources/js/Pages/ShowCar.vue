@@ -1,17 +1,21 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import 'flowbite';
 
 defineProps({ car: Object, cars: Array, })
-
 
 const isOpen = ref(false)
 
 const openModal = () => {
-    console.log("entro")
     isOpen.value = true
     return isOpen.value
 }
 
+onMounted(() => {
+  import('flowbite').then((module) => {
+    module.initFlowbite(); // 🔥 Re-inicializa Flowbite después de que Vue carga el DOM
+  });
+});
 </script>
 
 
