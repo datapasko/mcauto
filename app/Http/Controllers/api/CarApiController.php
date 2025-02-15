@@ -17,7 +17,7 @@ class CarApiController extends Controller
             ->byBrand($request->brand)
             ->byColor($request->color)
             ->byYear($request->year)
-            ->paginate(10);
+            ->paginate(10); 
     }
 
     public function getLastCars(Request $request) 
