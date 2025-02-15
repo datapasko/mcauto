@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
-class CarApiController extends Controller
+class CarController extends Controller
 {
     public function getIndexPaginate(Request $request) 
     {
