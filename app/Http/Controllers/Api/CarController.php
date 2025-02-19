@@ -27,7 +27,21 @@ class CarController extends Controller
 
     public function buyCar(Request $request)
     {
-        Mail::to($request->email)->send(new BuyCarMail);
+        $details = [
+            'subject' => $request->subject,
+            'message' => $request->message,
+            'service' => $request->service,
+            'car'     => $request->car,
+            'model_car' => $request->model_car,
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'message_client' => $request->message_client,
+        ];
+
+       Mail::to('tapaskojd@gmail.com')->send(new BuyCarMail ($details));
+
+       return "Correo enviado!";
     }
 
     public function show(Request $request, Car $car)

@@ -13,12 +13,15 @@ class BuyCarMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $details;
     /**
      * Create a new message instance.
+     *
+     * @return void
      */
-    public function __construct()
+    public function __construct($details)
     {
-        //
+        $this->details = $details;
     }
 
     /**
@@ -27,7 +30,7 @@ class BuyCarMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Buy Car Mail',
+            subject: $this->details['subject'],
         );
     }
 
@@ -38,6 +41,9 @@ class BuyCarMail extends Mailable
     {
         return new Content(
             view: 'emails.buy_car',
+            with: [
+                'details' => $this->details,
+            ],
         );
     }
 

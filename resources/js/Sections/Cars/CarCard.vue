@@ -1,3 +1,19 @@
+<script setup>
+import { onMounted } from "vue";
+import 'flowbite';
+
+onMounted(() => {
+  import('flowbite').then((module) => {
+    module.initFlowbite(); // 🔥 Re-inicializa Flowbite después de que Vue carga el DOM
+  });
+});
+
+const priceFormat = (price) => {
+  return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(price);
+};
+</script>
+
+
 <template>
     <div class="bg-gray-200 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 max-w-80">
         
@@ -51,13 +67,18 @@
 
             <div class="flexAround gap-3 mx-3 mb-3">
                 <Link :href="`/cars/${car.id}/show`" class="border-2 border-primary-700 w-full h-12 rounded-2xl text-center p-1">
-                    <p class="text-xs text-gray-500">Precio al contado</p>
-                    <p class=" font-semibold text-gray-700">{{ car.price }} €</p>
+                    <p class="text-xs text-gray-500">Precio</p>
+                    <p class=" font-semibold text-gray-700">{{ priceFormat(car.price) }} </p>
                 </Link>
 
                 <Link class="bg-yellow-500 w-full h-12 rounded-2xl flex items-center justify-center font-semibold" :href="`/cars/${car.id}/show`">
                     Lo quiero      
                 </Link>
+                
+                <img v-if="car.sticker == 'B'" class="size-10" src="../../../img/etiqueta_b.png" alt="logo mcauto13">
+                <img v-if="car.sticker == 'C'" class="size-10" src="../../../img/etiqueta_c.png" alt="logo mcauto13">
+                <img v-if="car.sticker == 'ECO'" class="size-10" src="../../../img/etiquetaeco.png" alt="logo mcauto13">
+                <img v-if="car.sticker == 'Cero emisiones'" class="size-10" src="../../../img/etiqueta0.png" alt="logo mcauto13">
             </div> 
     </div>
 </template>

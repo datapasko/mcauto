@@ -14,7 +14,7 @@ Route::get('/coches-segunda-mano-barcelona', function () {
 
 Route::get('/cars/{car}/show', function (Car $car) {
     $car->load('images'); 
-    $cars = Car::with('images')->orderBy('id', 'desc')->limit(4)->get();
+    $cars = Car::with('images')->orderBy('preferential', 'DESC')->limit(8)->get();
     return Inertia::render('ShowCar', ['car' => $car, 'cars' => $cars]);
 });
 

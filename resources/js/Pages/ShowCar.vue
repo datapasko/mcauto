@@ -16,12 +16,18 @@ onMounted(() => {
     module.initFlowbite(); // 🔥 Re-inicializa Flowbite después de que Vue carga el DOM
   });
 });
+
+const priceFormat = (price) => {
+  return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(price);
+};
 </script>
 
 
 <template>
     <div>
-        <div class="max-container grid grid-cols-1 md:grid-cols-3 gap-4 mt-20 md:mt-24">
+        <SaleCarModal :car="car" :open="isOpen" @close="isOpen = !isOpen"></SaleCarModal>
+        <div class="max-container grid grid-cols-1 md:grid-cols-3 gap-4 md:pt-[20vh]">
+
             <div class="md:col-span-2">
                 <div id="default-carousel" class="relative w-full" data-carousel="static">
                     <!-- Carousel wrapper -->
@@ -71,16 +77,22 @@ onMounted(() => {
             <div class="bg-neutral-200 rounded-lg p-4">
                     
                 <div>
-                    <h2 class="text-neutral-700 text-3xl font-bold">
-                        {{ car.brand }}
-                    </h2>
+                    <div class="flexBetween gap-3">
+                        <h2 class="text-neutral-700 text-3xl font-bold">
+                            {{ car.brand }}
+                        </h2>
+                        
+                        <img v-if="car.sticker == 'B'" class="h-14" src="../../img/etiqueta_b.png" alt="logo mcauto13">
+                        <img v-if="car.sticker == 'C'" class="h-14" src="../../img/etiqueta_c.png" alt="logo mcauto13">
+                        <img v-if="car.sticker == 'ECO'" class="h-14" src="../../img/etiquetaeco.png" alt="logo mcauto13">
+                        <img v-if="car.sticker == 'Cero emisiones'" class="h-14" src="../../img/etiqueta0.png" alt="logo mcauto13">
+                    </div>
                     <p class="text-primary-900 text-lg font-medium">
                         {{ car.model }}
                     </p>
                     <p class="text-neutral-600 text-sm font-light">
-                        {{ car.description }}
+                        {{ car.type_sale }}
                     </p>
-                    <p class="font-light">Lo han visto 92 personas</p>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-5 bg-white rounded-lg p-2">
@@ -132,18 +144,24 @@ onMounted(() => {
                         </p>
                         <span>{{ car.cv }}</span>
                     </div> 
+                    
+                    <div>
+                        <p class="text-neutral-500 text-xs font-medium">
+                            Cilindrada
+                        </p>
+                        <span>{{ car.cylindrical }}</span>
+                    </div> 
                 </div>
 
                 
                 <div class="flexAround gap-3 mt-10">
                     <div class="border-2 border-primary-700 w-full h-12 rounded-2xl text-center p-1">
-                        <p class="text-xs text-gray-500">Precio al contado</p>
-                        <p class=" font-semibold text-gray-700">{{ car.price }} €</p>
+                        <p class="text-xs text-gray-500">Precio</p>
+                        <p class=" font-semibold text-gray-700">{{ priceFormat(car.price) }}</p>
                     </div>
 
                     <button type="button" class="bg-yellow-500 gap-x-2 w-full h-12 text-black text-nowrap rounded-xl border border-transparent font-semibold p-1 hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600 transition disabled:opacity-50 disabled:pointer-events-none" @click="openModal">Contactar</button>
 
-                    <SaleCarModal :car="car" :open="isOpen" @close="isOpen = !isOpen"></SaleCarModal>
 
                 </div> 
 

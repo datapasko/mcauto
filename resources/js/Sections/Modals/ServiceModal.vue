@@ -20,8 +20,6 @@
         try {
             await axios.post('/api/cars/buy-car', form.value);
 
-            alertSend.value = true
-
             form.value = {
                 name: '',
                 email: '',

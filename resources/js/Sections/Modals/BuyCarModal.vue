@@ -31,6 +31,7 @@
 
             closeModal();
         } catch (error) {
+            console.log(error)
             alert('Error al enviar el formulario');
         }
     };

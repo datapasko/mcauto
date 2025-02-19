@@ -32,10 +32,6 @@ class Car extends Model
         'preferential',
     ];
 
-    protected $casts = [
-        'images' => 'array',
-    ];
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

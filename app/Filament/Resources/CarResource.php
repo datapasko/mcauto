@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Models\Car;
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\Image;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Facades\Filament;
@@ -261,16 +262,30 @@ class CarResource extends Resource
 
                     ]), 
 
-                    FileUpload::make('images')
-                            //->relationship('images')
-                            ->label('Seleccionar Imágenes')
-                            ->directory('cars')  // Ruta donde se guardarán las imágenes
-                            ->image()
-                            ->multiple()  // Permite seleccionar múltiples imágenes
-                            ->maxFiles(7)
-                            ->maxSize(4048)  // Tamaño máximo de 2MB por imagen
-                            ->required()
-                            ->deleteUploadedFileUsing(fn ($file) => Storage::disk('public')->delete($file)), // Elimina archivo físico,
+                    Repeater::make('images')
+                        ->relationship('images') // Usa la relación con imágenes
+                        ->schema([
+                            FileUpload::make('image_path')
+                                ->image() // Asegura que solo se suban imágenes
+                                ->directory('cars') // Carpeta de almacenamiento
+                                ->required()
+                                ->maxSize(4120) // Limitar a 4 MB
+                                //->multiple() // Permite la selección múltiple de archivos
+                                //->maxFiles($maxImages) // Limita el número máximo de archivos
+                                ->deleteUploadedFileUsing(fn ($file) => Storage::disk('public')->delete($file)) // Elimina archivo físico
+                                ->label('Imagen'),
+                        ])
+                        ->helperText('Puedes agregar hasta ' . $maxImages . ' imágenes.')
+                        ->afterStateUpdated(function ($state, $get, $set) use ($maxImages) {
+                            // Verifica si se excede el límite de imágenes
+                            if (count($state) > $maxImages) {
+                                $set('images', array_slice($state, 0, $maxImages)); // Limita a $maxImages
+                            }
+                        })
+                        ->createItemButtonLabel('Agregar Imagen') // Cambiar etiqueta del botón
+                        ->columnSpanFull()
+                        ->default([])
+                        ->label('Seleccionar imágenes'),
 
                 /* Repeater::make('images')
                     ->relationship('images') // Usa la relación con imágenes
@@ -300,6 +315,7 @@ class CarResource extends Resource
 
             ]);
     }
+
 
     /* public static function afterSave($record)
     {
