@@ -2,29 +2,93 @@
 import { ref, onMounted } from "vue";
 
 const cars = ref([]);
+const pagination = ref({});
+const loading = ref(false);
 
 const carOptions = ref(
     [
-        "Toyota",
-        "Honda", 
-        "Ford", 
-        "Chevrolet", 
-        "BMW", 
-        "Mercede-Benz", 
-        "Audi", 
-        "Volkswagen", 
-        "Ferrari", 
-        "Lamborghini", 
-        "Fiat", 
-        "Renault", 
-        "Peugeot", 
-        "Citroën", 
-        "Hyundai", 
-        "Kia", 
-        "Volvo", 
-        "Tesla", 
-        "Nissan", 
-        "Mazda",
+        'Acura',
+        'Alfa Romeo',
+        'Aston Martin',
+        'Audi',
+        'Ariel',
+        'Bentley',
+        'BMW',
+        'Bugatti',
+        'Buick',
+        'Cadillac',
+        'Caterham',
+        'Chevrolet',
+        'Chery',
+        'Chrysler',
+        'Citroën',
+        'Daewoo',
+        'Daihatsu',
+        'Dodge',
+        'Dongfeng',
+        'Ferrari',
+        'Fiat',
+        'Fisker',
+        'Ford',
+        'Geely',
+        'GMC',
+        'Ginetta',
+        'Honda',
+        'Holden',
+        'Hummer',
+        'Hyundai',
+        'Hyundai Genesis',
+        'Infiniti',
+        'Isuzu',
+        'Jaguar',
+        'Jeep',
+        'Jowett',
+        'Karma',
+        'Kia',
+        'Koenigsegg',
+        'Lada',
+        'Lamborghini',
+        'Land Rover',
+        'Lexus',
+        'Lincoln',
+        'Lotus',
+        'Maserati',
+        'Mazda',
+        'McLaren',
+        'MINI',
+        'Mitsubishi',
+        'Mitsubishi Fuso',
+        'Morgan',
+        'Noble',
+        'Nissan',
+        'Peugeot',
+        'Pininfarina',
+        'Plymouth',
+        'Pontiac',
+        'Pagani',
+        'RAM',
+        'Renault',
+        'Rivian',
+        'Rover',
+        'Saab',
+        'Scion',
+        'Seat',
+        'Sbarro',
+        'Spyker',
+        'Subaru',
+        'Suzuki',
+        'Tata',
+        'Tesla',
+        'Toyota',
+        'Vauxhall',
+        'Vauxhall Motors',
+        'Volkswagen',
+        'Volvo',
+        'Volvo Cars',
+        'Wiesmann',
+        'Zhejiang Geely',
+        'Zotye',
+        'Otro',
     ]
 );
 
@@ -40,29 +104,51 @@ const colorOptions = ref ([
     'Naranja',
     'Rosa',
     'Violeta',
+    'Otro',
+]);
+
+const types = ref ([    
+    'Furgoneta', 
+    'Coche',
 ]);
 
 const nextYear = new Date().getFullYear() + 1; // Año siguiente al actual
 const years = ref(Array.from({ length: nextYear - 1900 + 1 }, (_, i) => nextYear - i));
 
-const getCars = () => {
-    let url = `/api/cars/all`;
+const  getCars = (url = `/api/cars/all`) => {
+    loading.value = true
     axios.get(url, { params: filters.value }).then((response) => {
         cars.value = response.data.data;
+        pagination.value = {
+            current_page: response.data.current_page,
+            last_page: response.data.last_page,
+            prev_page_url: response.data.prev_page_url,
+            next_page_url: response.data.next_page_url
+        };
+    })
+    .catch(error => {
+        console.error("Error al obtener los vehiculos:", error);
+    })
+    .finally(() =>{
+        loading.value = false;
     });
 };
 
 const filters = ref({
     brand: "",
-    color: "",
+    type: "",
     year: "",
+    minPrice: 0,
+    maxPrice: 10000,
 });
 
 const clearFilter = () => {
     filters.value = {
         brand: "",
-        color: "",
+        type: "",
         year: "",
+        minPrice: 0,
+        maxPrice: 10000,
     }
 }
 
@@ -102,7 +188,23 @@ onMounted(() => {
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 py-4">
+                <div>
+                    <label for="type" class="block text-xs text-gray-900">Tipo de vehiculo</label>
+                    <div class="mt-1">
+                        <div
+                            class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-primary-600">
+                            <select v-model="filters.type" name="type" id="type"
+                                class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
+                                @change="getCars()">
+                                <option v-for="option in types" :key="option" :value="option">
+                                    {{ option }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <div>
                     <label for="brand" class="block text-xs text-gray-900">Marca</label>
                     <div class="mt-1">
@@ -121,23 +223,6 @@ onMounted(() => {
 
 
                 <div>
-                    <label for="color" class="block text-xs text-gray-900">Color</label>
-                    <div class="mt-1 grow">
-                        <div
-                            class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-primary-600">
-                            <select v-model="filters.color" name="color" id="color"
-                                class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" @change="getCars()">                            
-                                <option v-for="option in colorOptions" :key="option" :value="option">
-                                    {{ option }}
-                                </option>
-                            </select>
-                            
-                        </div>
-                    </div>
-                </div>
-
-
-                <div>
                     <label for="year" class="block text-xs text-gray-900">Año</label>
                     <div class="mt-1">
                         <div
@@ -150,12 +235,52 @@ onMounted(() => {
                             </select>
                         </div>
                     </div>
+                </div>                
+
+                <div>
+                    <label for="minPrice" class="block text-xs text-gray-900">Precio minimo - {{ filters.minPrice }} €</label>
+                    <div class="mt-1">
+                        <div
+                            class="flex items-center rounded-md bg-white px-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-primary-600">
+                            <input v-model="filters.minPrice" type="range" name="minPrice" id="minPrice" min="0" max="60000" step="100" class="block min-w-0 grow py-1.5 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" @change="getCars()"/>
+                        </div>
+                    </div>
+                </div>                           
+
+                <div>
+                    <label for="maxPrice" class="block text-xs text-gray-900">Precio maximo - {{ filters.maxPrice }} €</label>
+                    <div class="mt-1">
+                        <div
+                            class="flex items-center rounded-md bg-white px-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-primary-600">
+                            <input v-model="filters.maxPrice" type="range" name="maxPrice" id="maxPrice" min="0" max="60000" step="100"  class="block min-w-0 grow py-1.5 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" @change="getCars()"/>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div
                 class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-14 sm:justify-center sm:items-center">
                 <CarCard v-for="item in cars" :key="item.id" :car="item" />
+            </div>
+
+            <div class="flex justify-center mt-6 space-x-2" v-if="cars.length">
+                <button 
+                @click="getCars(pagination.prev_page_url)" 
+                :disabled="!pagination.prev_page_url"
+                class="p-3 border rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" role="img" aria-labelledby="backAltIconTitle" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#000000" class="size-4"> <title id="backAltIconTitle">Back</title> <path d="M4 12l15-9v18z"/> </svg>
+                </button>
+
+                <span class="p-2 border text-sm rounded-md bg-primary-500 text-gray-300">
+                    Página {{ pagination.current_page }} de {{ pagination.last_page }}
+                </span>
+
+                <button 
+                @click="getCars(pagination.next_page_url)" 
+                :disabled="!pagination.next_page_url"
+                class="p-3 border rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" id="next" data-name="Line Color" class="size-4"><path id="primary" d="M17,12,5,21V3Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/></svg>
+                </button>
             </div>
         </div>
 

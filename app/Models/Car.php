@@ -26,7 +26,14 @@ class Car extends Model
         'description',
         'price',
         'type_sale',
-        'places'
+        'places',
+        'type',
+        'cylindrical',
+        'preferential',
+    ];
+
+    protected $casts = [
+        'images' => 'array',
     ];
 
     public function user(): BelongsTo
@@ -68,5 +75,18 @@ class Car extends Model
     {
         if($year)
             return $query->whereYear('year', $year);            
+    }
+
+    public function scopeByType($query, $type)
+    {
+        if($type)
+            return $query->where('type', $type);            
+    }
+
+
+    public function scopeByPrice($query, $minPrice, $maxPrice)
+    {
+        if(isset($minPrice) && isset($maxPrice) )
+            return $query->whereBetween('price', [$minPrice, $maxPrice]);          
     }
 }

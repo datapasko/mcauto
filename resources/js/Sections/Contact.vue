@@ -1,7 +1,5 @@
 <script setup>
-import { ref, defineEmits } from 'vue';
-
-const emit = defineEmits(['close']);
+import { ref } from 'vue';
 
 const form = ref({
     name: '',
@@ -10,17 +8,9 @@ const form = ref({
     message: '',
 });
 
-const alertSend = ref(false);
-
-const closeModal = () => {
-    emit('close');
-};
-
 const submitForm = async () => {
     try {
         await axios.post('/api/cars/buy-car', form.value);
-
-        alertSend.value = true
 
         form.value = {
             name: '',
@@ -28,8 +18,6 @@ const submitForm = async () => {
             phone: '',
             message: '',
         }
-
-        closeModal();
     } catch (error) {
         alert('Error al enviar el formulario');
     }
@@ -53,7 +41,7 @@ const submitForm = async () => {
                     <!-- Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 lg:gap-x-16">
                         <div class="md:order-2 border-b border-neutral-800 pb-10 mb-10 md:border-b-0 md:pb-0 md:mb-0">
-                            <form>
+                            <form @submit.prevent="submitForm">
                                 <div class="space-y-4">
                                     <!-- Input -->
                                     <div class="relative">
@@ -63,14 +51,14 @@ const submitForm = async () => {
                                         [&:not(:placeholder-shown)]:pt-6
                                         [&:not(:placeholder-shown)]:pb-2
                                         autofill:pt-6
-                                        autofill:pb-2" placeholder="Nombre">
+                                        autofill:pb-2" placeholder="Nombre" required>
                                         <label for="hs-tac-input-name" class="absolute top-0 start-0 p-4 h-full text-neutral-400 text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent peer-disabled:opacity-50 peer-disabled:pointer-events-none
                 peer-focus:text-xs
                 peer-focus:-translate-y-1.5
                 peer-focus:text-neutral-400
                 peer-[:not(:placeholder-shown)]:text-xs
                 peer-[:not(:placeholder-shown)]:-translate-y-1.5
-                peer-[:not(:placeholder-shown)]:text-neutral-400">Nombre</label>
+                peer-[:not(:placeholder-shown)]:text-neutral-400">Nombre *</label>
                                     </div>
                                     <!-- End Input -->
 
@@ -89,26 +77,20 @@ const submitForm = async () => {
                 peer-focus:text-neutral-400
                 peer-[:not(:placeholder-shown)]:text-xs
                 peer-[:not(:placeholder-shown)]:-translate-y-1.5
-                peer-[:not(:placeholder-shown)]:text-neutral-400">Correo</label>
+                peer-[:not(:placeholder-shown)]:text-neutral-400">Correo </label>
                                     </div>
                                     <!-- End Input -->
 
                                     <!-- Input -->
                                     <div class="relative">
-                                        <input type="text" id="hs-tac-input-phone" class="peer p-4 block w-full bg-neutral-800 border-transparent rounded-lg text-sm text-white placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none
-              focus:pt-6
-              focus:pb-2
-              [&:not(:placeholder-shown)]:pt-6
-              [&:not(:placeholder-shown)]:pb-2
-              autofill:pt-6
-              autofill:pb-2" placeholder="Phone">
+                                        <input type="text" id="hs-tac-input-phone" class="peer p-4 block w-full bg-neutral-800 border-transparent rounded-lg text-sm text-white placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2" placeholder="Phone" required>
                                         <label for="hs-tac-input-phone" class="absolute top-0 start-0 p-4 h-full text-neutral-400 text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent peer-disabled:opacity-50 peer-disabled:pointer-events-none
                 peer-focus:text-xs
                 peer-focus:-translate-y-1.5
                 peer-focus:text-neutral-400
                 peer-[:not(:placeholder-shown)]:text-xs
                 peer-[:not(:placeholder-shown)]:-translate-y-1.5
-                peer-[:not(:placeholder-shown)]:text-neutral-400">Teléfono</label>
+                peer-[:not(:placeholder-shown)]:text-neutral-400">Teléfono *</label>
                                     </div>
                                     <!-- End Input -->
 
@@ -120,7 +102,7 @@ const submitForm = async () => {
               [&:not(:placeholder-shown)]:pt-6
               [&:not(:placeholder-shown)]:pb-2
               autofill:pt-6
-              autofill:pb-2" placeholder="This is a textarea placeholder" data-hs-textarea-auto-height></textarea>
+              autofill:pb-2" placeholder="This is a textarea placeholder" data-hs-textarea-auto-height required></textarea>
                                         <label for="hs-tac-message" class="absolute top-0 start-0 p-4 h-full text-neutral-400 text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent peer-disabled:opacity-50 peer-disabled:pointer-events-none
                 peer-focus:text-xs
                 peer-focus:-translate-y-1.5
@@ -128,21 +110,20 @@ const submitForm = async () => {
                 peer-[:not(:placeholder-shown)]:text-xs
                 peer-[:not(:placeholder-shown)]:-translate-y-1.5
                 peer-[:not(:placeholder-shown)]:text-neutral-400">Envíanos un mensaje y te ayudamos a dar el siguiente
-                                            paso.</label>
+                                            paso. *</label>
                                     </div>
                                     <!-- End Textarea -->
                                 </div>
 
                                 <div class="mt-2">
                                     <p class="text-xs text-neutral-500">
-                                        Todos los campos son obligatorios
+                                        * Campo obligatorio.
                                     </p>
 
                                     <p class="mt-5">
-                                        <a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-yellow-300 font-medium text-sm text-neutral-800 rounded-xl focus:outline-none"
-                                            href="#">
+                                        <button type="submit" class="group inline-flex items-center gap-x-2 py-2 px-3 bg-yellow-300 font-medium text-sm text-neutral-800 rounded-xl focus:outline-none">
                                             Enviar
-                                        </a>
+                                        </button>
                                     </p>
                                 </div>
                             </form>
@@ -182,8 +163,8 @@ const submitForm = async () => {
                                     <h4 class="text-white font-semibold">Correo:</h4>
 
                                     <a class="mt-1 text-neutral-400 text-sm hover:text-neutral-200 focus:outline-none focus:text-neutral-200"
-                                        href="#mailto:citas@mcauto13.com" target="_blank">
-                                        citas@mcauto13.com
+                                        href="#mailto:info@mcauto13.com" target="_blank">
+                                        info@mcauto13.com
                                     </a>
                                 </div>
                             </div>

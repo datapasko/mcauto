@@ -12,17 +12,17 @@ class CarController extends Controller
 {
     public function getIndexPaginate(Request $request) 
     {
-        //dd($request->color);
         return Car::with('images')
             ->byBrand($request->brand)
-            ->byColor($request->color)
+            ->byPrice($request->minPrice, $request->maxPrice)
             ->byYear($request->year)
-            ->paginate(10); 
+            ->byType($request->type)
+            ->paginate(20); 
     }
 
     public function getLastCars(Request $request) 
     {
-        return Car::with('images')->latest()->take(4)->get();
+        return Car::with('images')->orderBy('preferential', 'DESC')->take(8)->get();
     }
 
     public function buyCar(Request $request)

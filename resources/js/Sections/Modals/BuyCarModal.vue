@@ -56,7 +56,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2" >
                             
                             <div>
-                                <label for="name" class="block text-xs text-gray-900">Nombre</label>
+                                <label for="name" class="block text-xs text-gray-900">Nombre *</label>
                                 <div class="mt-1">
                                     <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-primary-600">
                                     <input type="text" v-model="form.name" name="name" id="name" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" required/>
@@ -68,13 +68,13 @@
                                 <label for="email" class="block text-xs text-gray-900">Correo</label>
                                 <div class="mt-1">
                                     <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-primary-600">
-                                    <input type="email" v-model="form.email" name="email" id="email" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" required/>
+                                    <input type="email" v-model="form.email" name="email" id="email" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"/>
                                     </div>
                                 </div>
                             </div>                            
                             
                             <div>
-                                <label for="phone" class="block text-xs text-gray-900">Telefono</label>
+                                <label for="phone" class="block text-xs text-gray-900">Telefono *</label>
                                 <div class="mt-1">
                                     <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-primary-600">
                                         <input type="tel" v-model="form.phone" name="phone" id="phone" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" required/>
@@ -84,7 +84,7 @@
 
                             
                             <div>
-                                <label for="message" class="block text-xs text-gray-900">Mensaje</label>
+                                <label for="message" class="block text-xs text-gray-900">Mensaje *</label>
                                 <div class="mt-1">
                                     <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-primary-600">
                                     <textarea v-model="form.message" name="message" id="message" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" required/>
@@ -97,9 +97,9 @@
                     
                         <div class="flexBetween mt-4">
                             <div>
-                                <a href="tel:931274563">
+                                <a href="tel:696101373">
                                     <p class="text-sm font-semilight text-gray-700 ">Si tienes cualquier duda <span class="text-primary-600">llámanos</span></p>
-                                    <p class="text-sm font-bold text-gray-900 flex"> 931 27 45 63 </p>
+                                    <p class="text-sm font-bold text-gray-900 flex"> 696 10 13 73 </p>
                                 </a>
                             </div>
 

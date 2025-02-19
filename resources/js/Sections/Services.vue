@@ -38,12 +38,12 @@
 </template>
 
 <script>
-    import imgAlquiler from "../../img/services/alquiler.webp"
     import imgTaller from "../../img/services/taller.webp"
     import imgComprar from "../../img/services/comprar.webp"
-    import imgLavado from "../../img/services/lavado.webp"
     import imgLimpieza from "../../img/services/limpieza.webp"
     import imgSeguro from "../../img/services/seguro.webp"
+    import imgItv from "../../img/services/itv.webp"
+    import imgFurgoneta from "../../img/services/furgoneta.webp"
     import ServiceModal from "../Sections/Modals/ServiceModal.vue"
     import { ref } from 'vue'
 
@@ -68,14 +68,14 @@
                         description: 'Mantén tu coche en perfecto estado con nuestro servicio de mecánica profesional. Desde mantenimiento preventivo hasta reparaciones avanzadas, nos encargamos de todo con rapidez y garantía.'
                     },
                     {
-                        title: 'Alquila tu coche', 
-                        img: imgAlquiler, 
-                        description: 'Te ofrecemos una amplia selección de vehículos para cualquier necesidad: viajes, negocios o uso diario. Sin complicaciones y precios competitivos.'
+                        title: 'Alquila tu furgoneta', 
+                        img: imgFurgoneta, 
+                        description: '¿Necesitas una furgoneta para tu mudanza, trabajo o viaje? Te ofrecemos un servicio de alquiler rápido, fácil y sin complicaciones, con vehículos en perfecto estado y a precios competitivos.'
                     },
                     {
-                        title: 'Lavado y detallado profesional', 
-                        img: imgLavado, 
-                        description: 'Dale a tu coche el cuidado que se merece con nuestro servicio de lavado y detallado profesional. Eliminamos la suciedad, restauramos el brillo y protegemos cada detalle para que luzca como nuevo.'
+                        title: 'Revisión Previa ITV', 
+                        img: imgItv, 
+                        description: '¿Te preocupa que tu vehículo no pase la ITV? Con nuestro servicio de revisión previa, detectamos y solucionamos posibles fallos antes de la inspección, aumentando las probabilidades de éxito.'
                     },
                     {
                         title: 'Limpieza, mantenimiento y cuidado', 

@@ -12,7 +12,8 @@
                 <!-- End Title -->
 
                 <div class="py-10">
-                    <p class="text-2xl italic text-white">Calidad y transparencia en cada vehículo.</p>
+                    <p class="text-2xl italic text-white">Te compramos tu coche al instante,</p>
+                    <p class="text-2xl italic text-white">Alquila tu furgoneta de manera fácil y sencilla.</p>
                 </div>
 
                 <!-- Buttons -->
@@ -21,9 +22,9 @@
                         Encuentra tu coche ideal
                     </Link>
 
-                    <a class="ml-4 py-2 px-4 inline-flex items-center gap-x-2 text-lg font-semibold rounded-lg border-2 border-yellow-500  text-white hover:text-black hover:bg-yellow-500 focus:outline-none focus:bg-yellow-700 disabled:opacity-50 disabled:pointer-events-none" @click="openModal">
+                    <button class="ml-4 py-2 px-4 inline-flex items-center gap-x-2 text-lg font-semibold rounded-lg border-2 border-yellow-500  text-white hover:text-black hover:bg-yellow-500 focus:outline-none focus:bg-yellow-700 disabled:opacity-50 disabled:pointer-events-none" @click="openModal">
                         Vender mi coche
-                    </a>
+                    </button>
 
                     <BuyCarModal :open="isOpen" @close="isOpen = !isOpen"></BuyCarModal>
                 </div>

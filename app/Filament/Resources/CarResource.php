@@ -14,6 +14,7 @@ use Filament\Forms\Components\Radio;
 use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Repeater;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Facades\Storage;
@@ -37,36 +38,105 @@ class CarResource extends Resource
     {
 
         $user = Auth::user();
-        $maxImages = 5; // Limitar a un máximo de 5 imágenes        
+        $maxImages = 7; // Limitar a un máximo de 5 imágenes        
 
         return $form
             ->schema([
                 Hidden::make('user_id')->default(fn () => Filament::auth()->user()->id),
                 Grid::make(4)
                     ->schema([
+
+                        Select::make('type')->options([
+                            "Furgoneta" => "Furgoneta", 
+                            "Coche" => "Coche", 
+                        ])
+                            ->required()
+                            ->label('Tipo de vehiculo'),
+
                         TextInput::make('registration')->required()->maxLength(255)->label('Matricula'),
 
                         Select::make('brand')->options([
-                            "Toyota" => "Toyota",
-                            "Honda" => "Honda",
-                            "Ford" => "Ford",
-                            "Chevrolet" => "Chevrolet",
-                            "BMW" => "BMW",
-                            "Mercedes-Benz" => "Mercedes-Benz",
-                            "Audi" => "Audi",
-                            "Volkswagen" => "Volkswagen",
-                            "Ferrari" => "Ferrari",
-                            "Lamborghini" => "Lamborghini",
-                            "Fiat" => "Fiat",
-                            "Renault" => "Renault",
-                            "Peugeot" => "Peugeot",
-                            "Citroën" => "Citroën",
-                            "Hyundai" => "Hyundai",
-                            "Kia" => "Kia",
-                            "Volvo" => "Volvo",
-                            "Tesla" => "Tesla",
-                            "Nissan" => "Nissan",
-                            "Mazda" => "Mazda"
+                            'Acura' => 'Acura',
+                            'Alfa Romeo' => 'Alfa Romeo',
+                            'Aston Martin' => 'Aston Martin',
+                            'Audi' => 'Audi',
+                            'Ariel' => 'Ariel',
+                            'Bentley' => 'Bentley',
+                            'BMW' => 'BMW',
+                            'Bugatti' => 'Bugatti',
+                            'Buick' => 'Buick',
+                            'Cadillac' => 'Cadillac',
+                            'Caterham' => 'Caterham',
+                            'Chevrolet' => 'Chevrolet',
+                            'Chery' => 'Chery',
+                            'Chrysler' => 'Chrysler',
+                            'Citroën' => 'Citroën',
+                            'Daewoo' => 'Daewoo',
+                            'Daihatsu' => 'Daihatsu',
+                            'Dodge' => 'Dodge',
+                            'Dongfeng' => 'Dongfeng',
+                            'Ferrari' => 'Ferrari',
+                            'Fiat' => 'Fiat',
+                            'Fisker' => 'Fisker',
+                            'Ford' => 'Ford',
+                            'Geely' => 'Geely',
+                            'GMC' => 'GMC',
+                            'Ginetta' => 'Ginetta',
+                            'Honda' => 'Honda',
+                            'Holden' => 'Holden',
+                            'Hummer' => 'Hummer',
+                            'Hyundai' => 'Hyundai',
+                            'Hyundai Genesis' => 'Hyundai Genesis',
+                            'Infiniti' => 'Infiniti',
+                            'Isuzu' => 'Isuzu',
+                            'Jaguar' => 'Jaguar',
+                            'Jeep' => 'Jeep',
+                            'Jowett' => 'Jowett',
+                            'Karma' => 'Karma',
+                            'Kia' => 'Kia',
+                            'Koenigsegg' => 'Koenigsegg',
+                            'Lada' => 'Lada',
+                            'Lamborghini' => 'Lamborghini',
+                            'Land Rover' => 'Land Rover',
+                            'Lexus' => 'Lexus',
+                            'Lincoln' => 'Lincoln',
+                            'Lotus' => 'Lotus',
+                            'Maserati' => 'Maserati',
+                            'Mazda' => 'Mazda',
+                            'McLaren' => 'McLaren',
+                            'MINI' => 'MINI',
+                            'Mitsubishi' => 'Mitsubishi',
+                            'Mitsubishi Fuso' => 'Mitsubishi Fuso',
+                            'Morgan' => 'Morgan',
+                            'Noble' => 'Noble',
+                            'Nissan' => 'Nissan',
+                            'Peugeot' => 'Peugeot',
+                            'Pininfarina' => 'Pininfarina',
+                            'Plymouth' => 'Plymouth',
+                            'Pontiac' => 'Pontiac',
+                            'Pagani' => 'Pagani',
+                            'RAM' => 'RAM',
+                            'Renault' => 'Renault',
+                            'Rivian' => 'Rivian',
+                            'Rover' => 'Rover',
+                            'Saab' => 'Saab',
+                            'Scion' => 'Scion',
+                            'Seat' => 'Seat',
+                            'Sbarro' => 'Sbarro',
+                            'Spyker' => 'Spyker',
+                            'Subaru' => 'Subaru',
+                            'Suzuki' => 'Suzuki',
+                            'Tata' => 'Tata',
+                            'Tesla' => 'Tesla',
+                            'Toyota' => 'Toyota',
+                            'Vauxhall' => 'Vauxhall',
+                            'Vauxhall Motors' => 'Vauxhall Motors',
+                            'Volkswagen' => 'Volkswagen',
+                            'Volvo' => 'Volvo',
+                            'Volvo Cars' => 'Volvo Cars',
+                            'Wiesmann' => 'Wiesmann',
+                            'Zhejiang Geely' => 'Zhejiang Geely',
+                            'Zotye' => 'Zotye'
                         ])
                         ->searchable()
                         ->required()
@@ -88,7 +158,6 @@ class CarResource extends Resource
                             "Violeta" => "Violeta"
                         ])
                             ->searchable()
-                            ->required()
                             ->label('Color'),
         
                         DatePicker::make('year')
@@ -121,7 +190,6 @@ class CarResource extends Resource
                             5 => 5  
                         ])
                             ->searchable()
-                            ->required()
                             ->label('Puertas'),
 
                         Select::make('places')->options([
@@ -147,8 +215,30 @@ class CarResource extends Resource
                             ->numeric() // Solo permite números
                             ->integer() // Solo enteros
                             ->required(),
+
+                        TextInput::make('cylindrical')
+                            ->label('Cilindrada')
+                            ->numeric() // Solo permite números
+                            ->integer(),
+
+                        Select::make('sticker')->options([
+                                'Cero emisiones' => 'Cero emisiones', 
+                                'ECO' => 'ECO', 
+                                'C' => 'C', 
+                                'B' => 'B',
+                                'Sin etiqueta' => 'Sin etiqueta'
+                            ])
+                                ->searchable()
+                                ->required()
+                                ->label('Etiqueta ambiental'), 
+
+                        Toggle::make('preferential')
+                            ->label('Preferente')
+                            ->onColor('success')
+                            ->offColor('danger')
+                            ->default(false), // Valor por defecto activado
                             
-                        TextInput::make('description')->required()->maxLength(255)->label('Descripción'),
+                        TextInput::make('description')->maxLength(255)->label('Descripción'),
 
                         TextInput::make('price')
                             ->label('Precio')
@@ -170,14 +260,28 @@ class CarResource extends Resource
 
 
                     ]), 
-                Repeater::make('images')
+
+                    FileUpload::make('images')
+                            //->relationship('images')
+                            ->label('Seleccionar Imágenes')
+                            ->directory('cars')  // Ruta donde se guardarán las imágenes
+                            ->image()
+                            ->multiple()  // Permite seleccionar múltiples imágenes
+                            ->maxFiles(7)
+                            ->maxSize(4048)  // Tamaño máximo de 2MB por imagen
+                            ->required()
+                            ->deleteUploadedFileUsing(fn ($file) => Storage::disk('public')->delete($file)), // Elimina archivo físico,
+
+                /* Repeater::make('images')
                     ->relationship('images') // Usa la relación con imágenes
                     ->schema([
                         FileUpload::make('image_path')
                             ->image() // Asegura que solo se suban imágenes
                             ->directory('cars') // Carpeta de almacenamiento
                             ->required()
-                            ->maxSize(3120) // Limitar a 3 MB
+                            ->maxSize(4120) // Limitar a 3 MB
+                            ->multiple()
+                            //->maxFiles(7)
                             ->deleteUploadedFileUsing(fn ($file) => Storage::disk('public')->delete($file)) // Elimina archivo físico
                             ->label('Imagen'),
                     ])
@@ -191,10 +295,24 @@ class CarResource extends Resource
                     })
                     ->createItemButtonLabel('Agregar Imagen') // Cambiar etiqueta del botón
                     ->columnSpanFull()
-                    ->label('Seleccionar imagenes'), // Ocupar todo el ancho
+                    ->default([])
+                    ->label('Seleccionar imagenes'), // Ocupar todo el ancho */
 
             ]);
     }
+
+    /* public static function afterSave($record)
+    {
+        // Si se han subido varias imágenes, las asociamos al car_id
+        if ($record->images) {
+            foreach ($record->images as $image) {
+                Image::create([
+                    'car_id' => $record->id,  // Asignamos el car_id a cada imagen
+                    'image_path' => $image['image_path'],
+                ]);
+            }
+        }
+    } */
 
     public static function table(Table $table): Table
     {
