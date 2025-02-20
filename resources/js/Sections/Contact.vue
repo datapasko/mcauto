@@ -1,25 +1,57 @@
 <script setup>
+import Swal from 'sweetalert2'
 import { ref } from 'vue';
 
 const form = ref({
+    subject: 'Solicitud de contacto sitio web McAuto13',
     name: '',
     email: '',
     phone: '',
     message: '',
 });
 
+const successAlert = () => {
+    Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Correo enviado!",
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
+
+const errorAlert = () => {
+    Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Error al enviar!",
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
+
+
+const isLoading = ref(false);
+
 const submitForm = async () => {
     try {
-        await axios.post('/api/cars/buy-car', form.value);
 
+        isLoading.value = true;
+        await axios.post('/api/cars/buy-car', form.value)
+        successAlert()
         form.value = {
+            subject: 'Solicitud de contacto sitio web McAuto13',
             name: '',
             email: '',
             phone: '',
             message: '',
         }
+
     } catch (error) {
-        alert('Error al enviar el formulario');
+        console.log(error)
+        errorAlert()
+    } finally {
+        isLoading.value = false;
     }
 };
 </script>
@@ -45,7 +77,7 @@ const submitForm = async () => {
                                 <div class="space-y-4">
                                     <!-- Input -->
                                     <div class="relative">
-                                        <input type="text" id="hs-tac-input-name" class="peer p-4 block w-full bg-neutral-800 border-transparent rounded-lg text-sm text-white placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none
+                                        <input v-model="form.name" type="text" id="hs-tac-input-name" class="peer p-4 block w-full bg-neutral-800 border-transparent rounded-lg text-sm text-white placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none
                                         focus:pt-6
                                         focus:pb-2
                                         [&:not(:placeholder-shown)]:pt-6
@@ -64,7 +96,7 @@ const submitForm = async () => {
 
                                     <!-- Input -->
                                     <div class="relative">
-                                        <input type="email" id="hs-tac-input-email" class="peer p-4 block w-full bg-neutral-800 border-transparent rounded-lg text-sm text-white placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none
+                                        <input v-model="form.email" type="email" id="hs-tac-input-email" class="peer p-4 block w-full bg-neutral-800 border-transparent rounded-lg text-sm text-white placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none
               focus:pt-6
               focus:pb-2
               [&:not(:placeholder-shown)]:pt-6
@@ -83,7 +115,7 @@ const submitForm = async () => {
 
                                     <!-- Input -->
                                     <div class="relative">
-                                        <input type="text" id="hs-tac-input-phone" class="peer p-4 block w-full bg-neutral-800 border-transparent rounded-lg text-sm text-white placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2" placeholder="Phone" required>
+                                        <input v-model="form.phone" type="text" id="hs-tac-input-phone" class="peer p-4 block w-full bg-neutral-800 border-transparent rounded-lg text-sm text-white placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2" placeholder="Phone" required>
                                         <label for="hs-tac-input-phone" class="absolute top-0 start-0 p-4 h-full text-neutral-400 text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent peer-disabled:opacity-50 peer-disabled:pointer-events-none
                 peer-focus:text-xs
                 peer-focus:-translate-y-1.5
@@ -96,7 +128,7 @@ const submitForm = async () => {
 
                                     <!-- Textarea -->
                                     <div class="relative">
-                                        <textarea id="hs-tac-message" class="peer p-4 block w-full bg-neutral-800 border-transparent rounded-lg text-sm text-white placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none
+                                        <textarea v-model="form.message" id="hs-tac-message" class="peer p-4 block w-full bg-neutral-800 border-transparent rounded-lg text-sm text-white placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none
               focus:pt-6
               focus:pb-2
               [&:not(:placeholder-shown)]:pt-6
@@ -117,12 +149,13 @@ const submitForm = async () => {
 
                                 <div class="mt-2">
                                     <p class="text-xs text-neutral-500">
-                                        * Campo obligatorio.
+                                        * Campo obligatorio. {{ isLoading }}
                                     </p>
 
                                     <p class="mt-5">
-                                        <button type="submit" class="group inline-flex items-center gap-x-2 py-2 px-3 bg-yellow-300 font-medium text-sm text-neutral-800 rounded-xl focus:outline-none">
-                                            Enviar
+                                        <button type="submit" :disabled="isLoading" class="disabled:bg-gray-400 group inline-flex items-center gap-x-2 py-2 px-3 bg-yellow-300 font-medium text-sm text-neutral-800 rounded-xl focus:outline-none">
+                                            <span v-if="isLoading" class="animate-spin border-2 border-black border-t-transparent rounded-full w-5 h-5 mr-2"></span>
+                                            {{ isLoading ? 'Enviando...' : 'Contactar' }}
                                         </button>
                                     </p>
                                 </div>

@@ -1,37 +1,72 @@
 <script setup>
-    import { ref, defineEmits } from 'vue';
+    import Swal from 'sweetalert2'
+    import { ref, defineEmits, watch } from 'vue';
+    
+    const props = defineProps({ open: Boolean, service: String })
 
-    const emit = defineEmits(['close']);
+    const emit = defineEmits(['close']); 
+
+    const successAlert = () => {
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Correo enviado!",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+
+    const errorAlert = () => {
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Error al enviar!",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
 
     const form = ref({
+        subject: '',
+        service: '',
         name: '',
         email: '',
         phone: '',
         message: '',
     });
-
-    const alertSend = ref(false);
-
+    
     const closeModal = () => {
         emit('close');
     };
-
+    
+    const isLoading = ref(false);
     const submitForm = async () => {
         try {
-            await axios.post('/api/cars/buy-car', form.value);
-
+            isLoading.value = true;
+            await axios.post('/api/cars/buy-car', form.value);            
+            successAlert()
             form.value = {
+                subject: '',
+                service: '',
                 name: '',
                 email: '',
                 phone: '',
                 message: '',
             }
-
-            closeModal();
         } catch (error) {
-            alert('Error al enviar el formulario');
+            console.log(error)
+            errorAlert()
+        } finally {
+            isLoading.value = false;
+            closeModal();
         }
     };
+
+    // Escuchar cambios en props.service y actualizar form
+    watch(() => props.service, (newService) => {
+        form.value.subject = `Información sobre: ${newService}`;
+        form.value.service = `Agendar cita para: ${newService}`;
+    });
 </script>
 
 <template>
@@ -101,8 +136,11 @@
                                 </a>
                             </div>
 
-                            <div>                            
-                                <button type="submit" class="bg-primary-600 text-white px-3 py-2 rounded-lg text-sm">Agendar Cita</button>
+                            <div>   
+                                <button type="submit" :disabled="isLoading" class="disabled:bg-gray-400 group inline-flex items-center gap-x-2 py-2 px-3 bg-yellow-400 font-medium text-sm text-neutral-800 rounded-xl focus:outline-none">
+                                    <span v-if="isLoading" class="animate-spin border-2 border-black border-t-transparent rounded-full w-5 h-5 mr-2"></span>
+                                    {{ isLoading ? 'Enviando...' : 'Agendar Cita' }}
+                                </button>                         
                             </div>
                         </div>
 
@@ -120,12 +158,7 @@
 <script>
 
     export default {
-        name: 'ServiceModal',
-
-        props: {
-            open: Boolean,
-            required: true
-        },        
+        name: 'ServiceModal',       
     }
 </script>
 

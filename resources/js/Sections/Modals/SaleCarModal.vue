@@ -1,48 +1,80 @@
 <script setup>
-    import { ref, defineEmits } from 'vue';
+    import Swal from 'sweetalert2'
+    import { ref, defineEmits, toRefs } from 'vue';
 
-    const emit = defineEmits(['close']);
+    const props = defineProps({ open: Boolean, car: Object })
+
+    const emit = defineEmits(['close']); 
+
+    const successAlert = () => {
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Correo enviado!",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+
+    const errorAlert = () => {
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Error al enviar!",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+
+    //const { car } = toRefs(props);
 
     const form = ref({
-        car: '',
+        registration: props.car.registration,
+        model: props.car.model,
+        subject: `Información sobre coche: ${props.car.registration}`,
+        service: 'Información de coche',
         name: '',
         email: '',
         phone: '',
         message: '',
     });
 
-    const alertSend = ref(false);
-
     const closeModal = () => {
         emit('close');
     };
 
+    const isLoading = ref(false);
     const submitForm = async () => {
         try {
-            await axios.post('/api/cars/sale-car', form.value);
-
-            alertSend.value = true
-
+            isLoading.value = true;
+            await axios.post('/api/cars/buy-car', form.value);            
+            successAlert()
             form.value = {
-                car: '',
+                registration: '',
+                model: '',
+                subject: '',
+                service: 'Información de coche',
                 name: '',
                 email: '',
                 phone: '',
                 message: '',
             }
-
-            closeModal();
         } catch (error) {
-            alert('Error al enviar el formulario');
+            console.log(error)
+            errorAlert()
+        } finally {
+            isLoading.value = false;
+            closeModal();
         }
     };
+
 </script>
 
 <template>
     <div v-if="open" class="starting:open:opacity-0"> 
         <div class="fixed inset-0 flex items-center justify-center bg-gray-500/75 transition-opacity">
             <div class="bg-gray-50 rounded-lg shadow-lg w-lg p-2">
-
+{{ car.registration }}
                 <div class="flexEnd">
                     <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="size-4" @click="$emit('close')" >
                         <path d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z" fill="#0F0F0F"/>
@@ -105,8 +137,11 @@
                                 </a>
                             </div>
 
-                            <div>                            
-                                <button type="submit" class="bg-primary-600 text-white px-3 py-2 rounded-lg text-sm">Solicitar información</button>
+                            <div>   
+                                <button type="submit" :disabled="isLoading" class="disabled:bg-gray-400 group inline-flex items-center gap-x-2 py-2 px-3 bg-yellow-400 font-medium text-sm text-neutral-800 rounded-xl focus:outline-none">
+                                    <span v-if="isLoading" class="animate-spin border-2 border-black border-t-transparent rounded-full w-5 h-5 mr-2"></span>
+                                    {{ isLoading ? 'Enviando...' : 'Solicitar información' }}
+                                </button>                          
                             </div>
                         </div>
 
@@ -122,15 +157,8 @@
 </template>
 
 <script>
-
     export default {
-        name: 'SaleCarModal',
-
-        props: {
-            car: Object,
-            open: Boolean,
-            required: true
-        },        
+        name: 'SaleCarModal',       
     }
 </script>
 

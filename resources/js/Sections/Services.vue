@@ -8,7 +8,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 py-5">
             <div v-for="(item, index) in services" :key="index" class="block border border-gray-200 rounded-lg hover:bg-primary-100 hover:border-primary-500 hover:shadow-sm focus:outline-none dark:border-neutral-700">
-                <a type="button" @click="openModal">
+                <a type="button" @click="openModal(item.title)">
                     <div class="relative flex items-center overflow-hidden">
                         <img class="w-32 sm:w-48 h-full absolute inset-0 object-cover rounded-s-lg" :src="item.img" alt="alquiler de coche">
 
@@ -30,8 +30,7 @@
 
         <div class="text-center mt-5">
             <button type="button" class="bg-primary-500 gap-x-2 text-white text-nowrap rounded-xl border border-transparent font-semibold px-4 py-2 mt-10 hover:bg-primary-600 focus:outline-none focus:bg-primary-600 transition disabled:opacity-50 disabled:pointer-events-none" @click="openModal">Agendar cita</button>
-            
-            <ServiceModal :open="isOpen" @close="isOpen = !isOpen"></ServiceModal>
+            <ServiceModal :open="isOpen" @close="isOpen = !isOpen" :service="serviceSelected"></ServiceModal>
         </div>      
 
     </div>
@@ -93,14 +92,16 @@
 
         setup () {
             const isOpen = ref(false)
+            const serviceSelected = ref("")
 
-            const openModal = () => {
+            const openModal = (service) => {
+                serviceSelected.value = service
                 isOpen.value = true
                 return isOpen.value
             }
 
             return {
-                isOpen, openModal
+                isOpen, openModal, serviceSelected 
             }
         }
         

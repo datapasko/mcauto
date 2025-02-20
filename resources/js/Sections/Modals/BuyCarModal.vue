@@ -1,38 +1,63 @@
 <script setup>
+    import Swal from 'sweetalert2'
     import { ref, defineEmits } from 'vue';
 
     const emit = defineEmits(['close']);
-
+    const props = defineProps({ open: Boolean})
+    
     const form = ref({
+        subject: 'Solicitud de tasación',
+        service: 'Solicitud de tasación',
         name: '',
         email: '',
         phone: '',
         message: '',
     });
 
-    const alertSend = ref(false);
+    const successAlert = () => {
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Correo enviado!",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+
+    const errorAlert = () => {
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Error al enviar!",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
 
     const closeModal = () => {
         emit('close');
     };
 
+    const isLoading = ref(false);
     const submitForm = async () => {
         try {
-            await axios.post('/api/cars/buy-car', form.value);
-
-            alertSend.value = true
-
+            isLoading.value = true;
+            await axios.post('/api/cars/buy-car', form.value);            
+            successAlert()
             form.value = {
+                subject: 'Solicitud de tasación',
+                service: 'Solicitud de tasación',
                 name: '',
                 email: '',
                 phone: '',
                 message: '',
             }
-
-            closeModal();
         } catch (error) {
             console.log(error)
-            alert('Error al enviar el formulario');
+            errorAlert()
+        } finally {
+            isLoading.value = false;
+            closeModal();
         }
     };
 </script>
@@ -88,7 +113,7 @@
                                 <label for="message" class="block text-xs text-gray-900">Mensaje *</label>
                                 <div class="mt-1">
                                     <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-primary-600">
-                                    <textarea v-model="form.message" name="message" id="message" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" required/>
+                                    <textarea v-model="form.message" name="message" id="message" placeholder="Describe brevemente las caracteristicas de tu coche" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" required/>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +130,10 @@
                             </div>
 
                             <div>                            
-                                <button type="submit" class="bg-primary-600 text-white px-3 py-2 rounded-lg text-sm">Solicitar tasación</button>
+                                <button type="submit" :disabled="isLoading" class="disabled:bg-gray-400 group inline-flex items-center gap-x-2 py-2 px-3 bg-yellow-400 font-medium text-sm text-neutral-800 rounded-xl focus:outline-none">
+                                    <span v-if="isLoading" class="animate-spin border-2 border-black border-t-transparent rounded-full w-5 h-5 mr-2"></span>
+                                    {{ isLoading ? 'Enviando...' : 'Solicitar tasación' }}
+                                </button>  
                             </div>
                         </div>
 
@@ -123,12 +151,7 @@
 <script>
 
     export default {
-        name: 'BuyCarModal',
-
-        props: {
-            open: Boolean,
-            required: true
-        },        
+        name: 'BuyCarModal',      
     }
 </script>
 
