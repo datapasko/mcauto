@@ -39,7 +39,7 @@ class CarController extends Controller
             'message_client' => $request->message_client,
         ];
 
-       Mail::to('tapaskojd@gmail.com')->send(new BuyCarMail ($details));
+       Mail::to('info@mcauto13.com')->send(new BuyCarMail ($details));
 
        return "Correo enviado!";
     }
