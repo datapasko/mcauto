@@ -35,4 +35,7 @@ export default {
     plugins: [
         require('flowbite/plugin')
     ],
+    corePlugins: {
+      preflight: false, // Esto reduce el tiempo si no usas los estilos base de Tailwind.
+    }
 };

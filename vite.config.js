@@ -4,6 +4,10 @@ import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
+    cacheDir: '.vite-cache',
+    build: {
+      minify: 'esbuild' // Es más rápido que Terser
+    },
     plugins: [
         tailwindcss(),
         vue(),
