@@ -25,11 +25,10 @@ const priceFormat = (price) => {
 
 <template>
     <div>
-        <SaleCarModal :car="car" :open="isOpen" @close="isOpen = !isOpen"></SaleCarModal>
         <div class="max-container grid grid-cols-1 md:grid-cols-3 gap-4 md:pt-[20vh]">
 
             <div class="md:col-span-2">
-                <div id="default-carousel" class="relative w-full" data-carousel="static">
+                <div id="default-carousel" class="relative w-full z-10" data-carousel="static">
                     <!-- Carousel wrapper -->
                     <div class="relative h-96 overflow-hidden rounded-lg md:h-[60dvh]">
                         <!-- Item 1 -->
@@ -162,6 +161,7 @@ const priceFormat = (price) => {
 
                     <button type="button" class="bg-yellow-500 gap-x-2 w-full h-12 text-black text-nowrap rounded-xl border border-transparent font-semibold p-1 hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600 transition disabled:opacity-50 disabled:pointer-events-none" @click="openModal">Contactar</button>
 
+                    <SaleCarModal :car="car" :open="isOpen" @close="isOpen = !isOpen"></SaleCarModal>
 
                 </div> 
 
