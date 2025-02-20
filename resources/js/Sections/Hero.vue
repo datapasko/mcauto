@@ -1,8 +1,33 @@
+<script setup>
+import { ref, onMounted } from "vue";
+
+const url_image = ref('');
+const isOpen = ref(false)
+
+const openModal = () => {
+    isOpen.value = true
+    return isOpen.value
+}
+
+const  getImage = (url = `/api/hero/image-principal`) => {
+    axios.get(url).then((response) => {
+        url_image.value = response.data;
+        console.log(response.data)
+    })
+    .catch(error => {
+        console.error("Error al obtener la imagen:", error);
+    })
+};
+
+onMounted(() => {
+    getImage();
+});
+</script>
+
 <template>
-    <div class="bg-[url(../img/logan.jpg)] bg-cover bg-center h-screen">
+    <div class="bg-cover bg-center h-screen" :style="{ backgroundImage: `url(${url_image})` }">
         <div class="bg-black/60 backdrop-blur-none h-screen"> 
             <div class="mx-auto px-4 sm:px-6 lg:px-12 pt-[40vh] ">
-
                 <!-- Title -->
                 <div class="max-w-2xl">
                     <h1 class="block font-bold text-white text-5xl">
@@ -42,24 +67,7 @@
 
         components: {
             BuyCarModal
-        },
-
-        setup () {
-            const isOpen = ref(false)
-
-            const openModal = () => {
-                isOpen.value = true
-                return isOpen.value
-            }
-
-            return {
-                isOpen, openModal
-            }
-        }
-
-
-
-        
+        },        
     }
 </script>
 

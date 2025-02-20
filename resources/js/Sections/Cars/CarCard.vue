@@ -61,7 +61,6 @@ const priceFormat = (price) => {
 
             <div class="p-4">
                 <h3 class="text-gray-800 font-semibold mb-1">{{ car.brand + ' ' + car.model }}</h3>
-                <h3 class="text-gray-500 font-light truncate">{{ car.description }}</h3>
                 <p class="text-gray-700 font-light text-xs truncate">{{ car.fuel + ' | ' + car.km + ' km' + ' | ' + car.cv + ' CV' + ' | ' + car.year}}</p>
             </div>
 

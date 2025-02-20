@@ -80,7 +80,7 @@
                     {
                         title: 'Limpieza, mantenimiento y cuidado', 
                         img: imgLimpieza, 
-                        description: 'Tu coche merece estar siempre en las mejores condiciones, por dentro y por fuera. Ofrecemos servicios de limpieza profesional, mantenimiento y cuidado para que tu vehículo luzca impecable y funcione a la perfección.'
+                        description: 'Tu coche merece estar siempre en las mejores condiciones, por dentro y por fuera. Ofrecemos servicios de limpieza profesional, mantenimiento y cuidado para que tu vehículo luzca impecable.'
                     },
                     {
                         title: 'Protección total con seguros a medida', 

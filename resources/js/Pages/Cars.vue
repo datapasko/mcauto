@@ -159,7 +159,7 @@ onMounted(() => {
 
 <template>
     <div class="bg-neutral-100">
-        <div class="max-container pt-20 pb-8">
+        <div class="max-container pt-[20vh] pb-8">
             <div class="text-center">
                 <h2 class="font-bold text-xl lg:text-3xl dark:text-gray-800 mb-2">
                     <span class="text-primary-500">Coches</span> de segunda mano en
