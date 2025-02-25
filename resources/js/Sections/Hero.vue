@@ -27,7 +27,7 @@ onMounted(() => {
 <template>
     <div class="bg-cover bg-center h-screen" :style="{ backgroundImage: `url(${url_image})` }">
         <div class="bg-black/60 backdrop-blur-none h-screen"> 
-            <div class="mx-auto px-4 sm:px-6 lg:px-12 pt-[40vh] ">
+            <div class="mx-auto px-4 sm:px-6 lg:px-12 pt-[20vh] md:pt-[40vh] ">
                 <!-- Title -->
                 <div class="max-w-2xl">
                     <h1 class="block font-bold text-white text-5xl">
@@ -42,12 +42,12 @@ onMounted(() => {
                 </div>
 
                 <!-- Buttons -->
-                <div class="pt-15">
+                <div class="flex flex-col md:flex-row pt-15">
                     <Link class="py-2 px-4 inline-flex items-center gap-x-2 text-lg font-semibold rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 focus:outline-none focus:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none" href="/coches-segunda-mano-barcelona">
                         Encuentra tu coche ideal
                     </Link>
 
-                    <button class="ml-4 py-2 px-4 inline-flex items-center gap-x-2 text-lg font-semibold rounded-lg border-2 border-yellow-500  text-white hover:text-black hover:bg-yellow-500 focus:outline-none focus:bg-yellow-700 disabled:opacity-50 disabled:pointer-events-none" @click="openModal">
+                    <button class="mt-5 md:mt-0 md:ml-4 py-2 px-4 inline-flex items-center gap-x-2 text-lg font-semibold rounded-lg border-2 border-yellow-500  text-white hover:text-black hover:bg-yellow-500 focus:outline-none focus:bg-yellow-700 disabled:opacity-50 disabled:pointer-events-none" @click="openModal">
                         Vender mi coche
                     </button>
 

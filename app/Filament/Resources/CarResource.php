@@ -160,10 +160,15 @@ class CarResource extends Resource
                         ])
                             ->searchable()
                             ->label('Color'),
-        
-                        DatePicker::make('year')
-                            ->required()
-                            ->label('Año matriculación'),
+                        
+                        Select::make('year')
+                            ->label('Año matriculación')
+                            ->options(array_combine(
+                                range(date('Y') + 1, 1950), // Genera años desde 1950 hasta el año actual + 1
+                                range(date('Y') + 1, 1950)
+                            ))
+                            ->searchable()
+                            ->required(),
 
                         Select::make('fuel')->options([
                             "Diésel" => "Diésel", 

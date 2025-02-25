@@ -141,15 +141,14 @@ const submitForm = async () => {
                 peer-focus:text-neutral-400
                 peer-[:not(:placeholder-shown)]:text-xs
                 peer-[:not(:placeholder-shown)]:-translate-y-1.5
-                peer-[:not(:placeholder-shown)]:text-neutral-400">Envíanos un mensaje y te ayudamos a dar el siguiente
-                                            paso. *</label>
+                peer-[:not(:placeholder-shown)]:text-neutral-400">Envíanos un mensaje *</label>
                                     </div>
                                     <!-- End Textarea -->
                                 </div>
 
                                 <div class="mt-2">
                                     <p class="text-xs text-neutral-500">
-                                        * Campo obligatorio. {{ isLoading }}
+                                        * Campo obligatorio.
                                     </p>
 
                                     <p class="mt-5">

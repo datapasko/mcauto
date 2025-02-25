@@ -25,7 +25,7 @@ const priceFormat = (price) => {
 
 <template>
     <div class="bg-neutral-100">        
-        <div class="max-container pt-[20vh] pb-8">
+        <div class="max-container pt-[15vh] md:pt-[20vh] pb-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                 <div class="md:col-span-2">
