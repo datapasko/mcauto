@@ -54,7 +54,7 @@ class CarResource extends Resource
                             ->required()
                             ->label('Tipo de vehiculo'),
 
-                        TextInput::make('registration')->required()->maxLength(255)->label('Matricula'),
+                        TextInput::make('registration')->maxLength(255)->label('Matricula'),
 
                         Select::make('brand')->options([
                             'Acura' => 'Acura',
@@ -178,7 +178,6 @@ class CarResource extends Resource
                             "Híbrido" => "Híbrido", 
                         ])
                             ->searchable()
-                            ->required()
                             ->label('Combustible'),
 
                         Select::make('transmission')->options([
@@ -207,20 +206,17 @@ class CarResource extends Resource
                             9 => 9,
                         ])
                             ->searchable()
-                            ->required()
                             ->label('Plazas'), 
                             
                         TextInput::make('km')
                             ->label('Kilometros')
                             ->numeric() // Solo permite números
-                            ->integer() // Solo enteros
-                            ->required(),
+                            ->integer(), // Solo enteros,
                         
                         TextInput::make('cv')
                             ->label('CV')
-                            ->numeric() // Solo permite números
-                            ->integer() // Solo enteros
-                            ->required(),
+                            ->numeric() // Solo permite númerosñ
+                            ->integer(),
 
                         TextInput::make('cylindrical')
                             ->label('Cilindrada')
@@ -235,7 +231,6 @@ class CarResource extends Resource
                                 'Sin etiqueta' => 'Sin etiqueta'
                             ])
                                 ->searchable()
-                                ->required()
                                 ->label('Etiqueta ambiental'), 
 
                         Toggle::make('preferential')

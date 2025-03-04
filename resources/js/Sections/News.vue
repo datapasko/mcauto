@@ -39,7 +39,7 @@ onMounted(() => {
         class="bg-yellow-500 gap-x-2 text-lg text-nowrap rounded-xl border border-transparent font-semibold p-3 hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600 transition disabled:opacity-50 disabled:pointer-events-none"
         href="/coches-segunda-mano-barcelona"
       >
-        Encuentra tu coche ideal
+        Ver más coches
       </Link>
     </div>
   </div>
