@@ -50,6 +50,7 @@ class CarResource extends Resource
                         Select::make('type')->options([
                             "Furgoneta" => "Furgoneta", 
                             "Coche" => "Coche", 
+                            "Camión" => "Camión", 
                         ])
                             ->required()
                             ->label('Tipo de vehiculo'),
@@ -106,6 +107,7 @@ class CarResource extends Resource
                             'Lotus' => 'Lotus',
                             'Maserati' => 'Maserati',
                             'Mazda' => 'Mazda',
+                            'MAN Truck' => 'MAN Truck',
                             'Mercedes-Benz' => 'Mercedes-Benz',
                             'McLaren' => 'McLaren',
                             'MINI' => 'MINI',
@@ -206,8 +208,13 @@ class CarResource extends Resource
                             3 => 3, 
                             4 => 4, 
                             5 => 5,
+                            6 => 6,
                             7 => 7,
+                            8 => 8,
                             9 => 9,
+                            10 => 10,
+                            11 => 11,
+                            12 => 12,
                         ])
                             ->searchable()
                             ->label('Plazas'), 

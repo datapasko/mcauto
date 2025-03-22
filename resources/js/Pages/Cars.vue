@@ -54,6 +54,7 @@ const carOptions = ref(
         'Lotus',
         'Maserati',
         'Mazda',
+        'MAN Truck',
         'McLaren',
         'MINI',
         'Mitsubishi',
@@ -110,6 +111,7 @@ const colorOptions = ref ([
 const types = ref ([    
     'Furgoneta', 
     'Coche',
+    'Camión',
 ]);
 
 const nextYear = new Date().getFullYear() + 1; // Año siguiente al actual
