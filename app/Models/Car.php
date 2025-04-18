@@ -58,13 +58,13 @@ class Car extends Model
     public function scopeByBrand($query, $brand)
     {
         if($brand)
-            return $query->where('brand', $brand);            
+            return $query->where('brand', 'LIKE','%'.$brand.'%');            
     }
 
     public function scopeByColor($query, $color)
     {
         if($color)
-            return $query->where('color', $color);            
+            return $query->where('color','LIKE','%'.$color.'%');            
     }
 
     public function scopeByYear($query, $year)
